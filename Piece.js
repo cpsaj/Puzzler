@@ -29,7 +29,7 @@ class Piece
             this.imagePiece.pixels[i] = 255;
             this.imagePiece.pixels[i + 1] = 0;
             this.imagePiece.pixels[i + 2] = 0;
-            this.imagePiece.pixels[i + 3] = 255;
+            // this.imagePiece.pixels[i + 3] = 255;
         }
 
 
