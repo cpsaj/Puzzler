@@ -33,17 +33,34 @@ function draw()
 
 function mouseDragged()
 {
+  for(let i = 0; i < puzzle.movingPieces.length; i++)
+  {
+    puzzle.movingPieces[i].move(mouseX, mouseY);
+  }
+
+}
+
+function mousePressed()
+{
+  exit_loops:
   for(let i = 0; i < puzzle.pieces[0].length; i++)
   {
     for(let j = 0; j < puzzle.pieces.length; j++)
     {
       if (puzzle.pieces[j][i].mouseIsOver())
       {
-        puzzle.pieces[j][i].move(mouseX, mouseY)
+        puzzle.pieces[j][i].movingPiece = true;
+
+        puzzle.movingPieces.push(puzzle.pieces[j][i])
+        break exit_loops;
       }
     }
   }
+}
 
+function mouseReleased()
+{
+  puzzle.movingPieces = [];
 }
 
 

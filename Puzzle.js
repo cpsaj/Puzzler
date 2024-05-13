@@ -7,6 +7,7 @@ class Puzzle
         this.piecesY = piecesY;
 
         this.pieces = []
+        this.movingPieces = [];
 
         for(let x = 0; x < this.piecesX; x++)
         {
