@@ -8,6 +8,11 @@ class Puzzle
 
         this.pieces = []
 
+        this.boardWidth = image.width;
+        this.boardHeight = image.height;
+        this.boardX = (width - image.width) / 2;
+        this.boardY = (height - image.height) / 2;
+
         for(let x = 0; x < this.piecesX; x++)
         {
             this.pieces[x] = [];
@@ -50,6 +55,7 @@ class Puzzle
 
     draw()
     {
-        
+        //Draws the board
+        rect(this.boardX, this.boardY, this.boardWidth, this.boardHeight);
     }
 }

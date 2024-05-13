@@ -11,6 +11,7 @@ class Piece
 
         this.curPosX = random(0, width);
         this.curPosY = random(0, height);
+        this.movingPiece = false;
 
         this.neighbors = {
             up: null,
@@ -39,6 +40,19 @@ class Piece
     draw() 
     {
         image(this.imagePiece, this.curPosX, this.curPosY);
+
+        //Check if this object is moving. If yes set position to mouse position
+        if(this.movingPiece)
+        {
+            this.curPosX = mouseX;
+            this.curPosY = mouseY;
+        }
+
+        //Check if any object is moving. If not set this object to not be moving.
+        if(movingPiece == false)
+        {
+            this.movingPiece = false;
+        }
     }
 
     assignPixels()
@@ -58,6 +72,15 @@ class Piece
 
     move(x,y) 
     {
-        
-    }
+        //Check if mouse hovers over this object
+        //if(mouseX < (this.curPosX + this.widthNorm) && mouseX > (this.curPosX) && mouseY < (this.curPosY + this.heightNorm) && mouseY > (this.curPosY) && movingPiece == false)
+        if(mouseX < (this.curPosX + this.widthNorm) && mouseX > (this.curPosX + this.buffer) && mouseY < (this.curPosY + this.heightNorm) && mouseY > (this.curPosY + this.buffer) && movingPiece == false)
+        {
+            //Setting this object and any object to be moving
+            movingPiece = true;
+            this.movingPiece = true;
+        }
+    }    
 }
+
+
