@@ -12,7 +12,7 @@ function setup()
   img.loadPixels();
 
   
-  puzzle = new Puzzle(img, 10, 10);
+  puzzle = new Puzzle(img, 5, 10);
 
   // pice = new Piece(img,0,0,img.width/4,img.height/4);
 }
