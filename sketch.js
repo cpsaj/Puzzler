@@ -11,9 +11,7 @@ function setup()
   img.loadPixels();
 
   
-  puzzle = new Puzzle(img, 10, 10);
-
-  // pice = new Piece(img,0,0,img.width/4,img.height/4);
+  puzzle = new Puzzle(img, 5, 5);
 }
 
 function draw()
@@ -32,3 +30,20 @@ function draw()
     }
   }
 }
+
+function mouseDragged()
+{
+  for(let i = 0; i < puzzle.pieces[0].length; i++)
+  {
+    for(let j = 0; j < puzzle.pieces.length; j++)
+    {
+      if (puzzle.pieces[j][i].mouseIsOver())
+      {
+        puzzle.pieces[j][i].move(mouseX, mouseY)
+      }
+    }
+  }
+
+}
+
+
