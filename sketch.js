@@ -12,7 +12,7 @@ function setup()
   img.loadPixels();
 
   
-  puzzle = new Puzzle(img, 5, 10);
+  puzzle = new Puzzle(img, 5, 5);
 
   // pice = new Piece(img,0,0,img.width/4,img.height/4);
 }
@@ -37,7 +37,6 @@ function draw()
 
 function mousePressed()
 {
-  puzzle.draw();
   for(let i = 0; i < puzzle.pieces[0].length; i++)
   {
     for(let j = 0; j < puzzle.pieces.length; j++)

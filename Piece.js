@@ -73,7 +73,6 @@ class Piece
     move(x,y) 
     {
         //Check if mouse hovers over this object
-        //if(mouseX < (this.curPosX + this.widthNorm) && mouseX > (this.curPosX) && mouseY < (this.curPosY + this.heightNorm) && mouseY > (this.curPosY) && movingPiece == false)
         if(mouseX < (this.curPosX + this.buffer + this.widthNorm) && mouseX > (this.curPosX + this.buffer) && mouseY < (this.curPosY + this.buffer + this.heightNorm) && mouseY > (this.curPosY + this.buffer) && movingPiece == false)
         {
             //Setting this object and any object to be moving
