@@ -9,8 +9,8 @@ class Piece
         this.widthNorm = widthNorm;
         this.heightNorm = heightNorm;
 
-        this.curPosX = 0;
-        this.curPosY = 0;
+        this.curPosX = random(0, width);
+        this.curPosY = random(0, height);
 
         this.neighbors = {
             up: null,
@@ -38,7 +38,7 @@ class Piece
 
     draw() 
     {
-
+        image(this.imagePiece, this.curPosX, this.curPosY);
     }
 
     assignPixels()

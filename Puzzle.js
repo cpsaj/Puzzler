@@ -47,4 +47,9 @@ class Puzzle
             }
         }
     }
+
+    draw()
+    {
+        
+    }
 }
