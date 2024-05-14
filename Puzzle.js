@@ -59,7 +59,7 @@ class Puzzle
         {
             for(let x = 0; x < this.piecesX; x++)
             {
-                this.pieces[x][y] = new Piece(this.image, x, y, this.piecesWidthNorm, this.piecesHeightNorm);
+                this.pieces[x][y] = new Piece(this.image, x, y, this.piecesWidthNorm, this.piecesHeightNorm, this);
             }
         }
     }
