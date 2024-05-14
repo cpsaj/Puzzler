@@ -1,7 +1,8 @@
 class Piece
 {
-    constructor(image, relativeX, relativeY, widthNorm, heightNorm)
+    constructor(image, relativeX, relativeY, widthNorm, heightNorm, puzzleObj)
     {
+        this.puzzleObj = puzzleObj;
         this.wholeImage = image;
         this.relativeX = relativeX;
         this.relativeY = relativeY;
@@ -16,13 +17,24 @@ class Piece
             right: null
         };
 
+
+
         this.buffer = this.widthNorm/4
         this.imagePiece = createImage(this.widthNorm + this.buffer*2, this.heightNorm + this.buffer*2);
         this.imagePiece.loadPixels();
 
-        this.upperCornerX = random(0, width) - this.buffer;
-        this.upperCornerY = random(0, height) - this.buffer;
-
+        let boardValues = puzzleObj.getBoardValues();
+        this.upperCornerX = boardValues.x;
+        this.upperCornerY = boardValues.y;
+        while ((this.upperCornerX + this.widthNorm) > boardValues.x &&
+               this.upperCornerX < (boardValues.x + boardValues.width) &&
+               this.upperCornerY < boardValues.y + boardValues.height
+            )
+        {
+            this.upperCornerX = random(0, width) - this.buffer;
+            this.upperCornerY = random(0, height) - this.buffer;
+        }
+        
         this.midX = random(0, width) - this.buffer - this.widthNorm/2;
         this.midY = random(0, height) - this.buffer - this.heightNorm/2;
 
@@ -100,9 +112,9 @@ class Piece
     }
 
     // returns whether a piece is inside a puzzle
-    isInsideBoard(puzzleObj)
+    isInsideBoard()
     {
-        let boardPos = puzzleObj.getBoardValues();
+        let boardPos = this.puzzleObj.getBoardValues();
         if (boardPos.x < (this.upperCornerX + this.widthNorm/2) && 
             boardPos.x + boardPos.width > (this.upperCornerX + this.widthNorm/2) && 
             boardPos.y < (this.upperCornerY + this.heightNorm/2) && 
