@@ -51,8 +51,6 @@ function mousePressed()
     {
       if (puzzle.pieces[j][i].mouseIsOver())
       {
-        puzzle.pieces[j][i].movingPiece = true;
-
         puzzle.movingPieces.push(puzzle.pieces[j][i])
         break exit_loops;
       }
@@ -62,6 +60,10 @@ function mousePressed()
 
 function mouseReleased()
 {
+  for(let i = 0; i < puzzle.movingPieces.length; i++)
+    {
+      puzzle.movingPieces[i].snap();
+    }
   puzzle.movingPieces = [];
 }
 

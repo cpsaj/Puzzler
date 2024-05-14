@@ -35,7 +35,6 @@ class Piece
         //     // this.imagePiece.pixels[i + 3] = 255;
         // }
 
-
         this.assignPixels();
 
     }
@@ -77,8 +76,8 @@ class Piece
     // set the image's coordinates to a new posistion
     move(x,y) 
     {
-        this.upperCornerX = x - this.widthNorm/2;
-        this.upperCornerY = y - this.heightNorm/2;
+        this.upperCornerX = x - this.widthNorm / 2;
+        this.upperCornerY = y - this.heightNorm / 2;
     }
 
     // return whether the mouse is over the piece
@@ -91,6 +90,13 @@ class Piece
         {
             return false;
         }
+    }
+
+    snap()
+    {
+        //Snaps the piece to a grid
+        this.upperCornerX = round(this.upperCornerX / this.widthNorm) * this.widthNorm;
+        this.upperCornerY = round(this.upperCornerY / this.heightNorm) * this.heightNorm;
     }
 }
 
