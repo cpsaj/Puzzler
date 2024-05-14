@@ -23,6 +23,16 @@ class Puzzle
         this.generatePieces();
     }
 
+    getBoardValues()
+    {
+        return {
+            x: this.boardX, 
+            y: this.boardY,
+            width: this.boardWidth,
+            heigth: this.boardHeight
+        };
+    }
+
     calculatePieceSize() 
     {
         //Cut off some of the picture if the wished number of pieces doesn't fit the size of the picture
