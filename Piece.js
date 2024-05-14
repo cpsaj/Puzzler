@@ -31,10 +31,10 @@ class Piece
                this.upperCornerY < boardValues.y + boardValues.height
             )
         {
-            this.upperCornerX = random(0, width) - this.buffer;
-            this.upperCornerY = random(0, height) - this.buffer;
+        this.upperCornerX = random(0, width) - this.buffer;
+        this.upperCornerY = random(0, height) - this.buffer;
         }
-        
+
         this.midX = random(0, width) - this.buffer - this.widthNorm/2;
         this.midY = random(0, height) - this.buffer - this.heightNorm/2;
 
@@ -104,11 +104,14 @@ class Piece
         }
     }
 
-    snap(puzzleObj)
+    snap()
     {
-        //Snaps the piece to a grid
-        this.upperCornerX = round((this.upperCornerX - puzzleObj.getBoardValues().x) / this.widthNorm) * this.widthNorm + puzzleObj.getBoardValues().x;
-        this.upperCornerY = round((this.upperCornerY - puzzleObj.getBoardValues().y) / this.heightNorm) * this.heightNorm + puzzleObj.getBoardValues().y;
+        //Snaps the piece to a grid if inside of board
+        if(this.isInsideBoard(this.puzzleObj))
+        {
+            this.upperCornerX = round((this.upperCornerX - this.puzzleObj.getBoardValues().x) / this.widthNorm) * this.widthNorm + this.puzzleObj.getBoardValues().x;
+            this.upperCornerY = round((this.upperCornerY - this.puzzleObj.getBoardValues().y) / this.heightNorm) * this.heightNorm + this.puzzleObj.getBoardValues().y;
+        }
     }
 
     // returns whether a piece is inside a puzzle
