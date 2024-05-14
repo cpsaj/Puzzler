@@ -62,7 +62,7 @@ function mouseReleased()
 {
   for(let i = 0; i < puzzle.movingPieces.length; i++)
     {
-      puzzle.movingPieces[i].snap();
+      puzzle.movingPieces[i].snap(puzzle);
     }
   puzzle.movingPieces = [];
 }

@@ -92,11 +92,11 @@ class Piece
         }
     }
 
-    snap()
+    snap(puzzleObj)
     {
         //Snaps the piece to a grid
-        this.upperCornerX = round(this.upperCornerX / this.widthNorm) * this.widthNorm;
-        this.upperCornerY = round(this.upperCornerY / this.heightNorm) * this.heightNorm;
+        this.upperCornerX = round((this.upperCornerX - puzzleObj.getBoardValues().x) / this.widthNorm) * this.widthNorm + puzzleObj.getBoardValues().x;
+        this.upperCornerY = round((this.upperCornerY - puzzleObj.getBoardValues().y) / this.heightNorm) * this.heightNorm + puzzleObj.getBoardValues().y;
     }
 
     // returns whether a piece is inside a puzzle
