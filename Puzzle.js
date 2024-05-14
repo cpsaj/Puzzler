@@ -29,7 +29,7 @@ class Puzzle
             x: this.boardX, 
             y: this.boardY,
             width: this.boardWidth,
-            heigth: this.boardHeight
+            height: this.boardHeight
         };
     }
 

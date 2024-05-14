@@ -26,13 +26,13 @@ class Piece
         this.midX = random(0, width) - this.buffer - this.widthNorm/2;
         this.midY = random(0, height) - this.buffer - this.heightNorm/2;
 
-        // // visualisering af buffer
+        // visualisering af buffer
         // for (let i = 0; i < this.imagePiece.pixels.length; i += 4) 
         // {
         //     this.imagePiece.pixels[i] = 255;
         //     this.imagePiece.pixels[i + 1] = 0;
         //     this.imagePiece.pixels[i + 2] = 0;
-        //     // this.imagePiece.pixels[i + 3] = 255;
+        //     this.imagePiece.pixels[i + 3] = 255;
         // }
 
         this.assignPixels();
@@ -98,6 +98,21 @@ class Piece
         this.upperCornerX = round(this.upperCornerX / this.widthNorm) * this.widthNorm;
         this.upperCornerY = round(this.upperCornerY / this.heightNorm) * this.heightNorm;
     }
+
+    // returns whether a piece is inside a puzzle
+    isInsideBoard(puzzleObj)
+    {
+        let boardPos = puzzleObj.getBoardValues();
+        if (boardPos.x < (this.upperCornerX + this.widthNorm/2) && 
+            boardPos.x + boardPos.width > (this.upperCornerX + this.widthNorm/2) && 
+            boardPos.y < (this.upperCornerY + this.heightNorm/2) && 
+            boardPos.y + boardPos.height > (this.upperCornerY + this.heightNorm/2)
+        )
+        {
+            return true;
+        } else
+        {
+            return false
+        }
+    }
 }
-
-
