@@ -12,7 +12,7 @@ function setup()
   img.loadPixels();
 
   
-  puzzle = new Puzzle(img, 5, 5);
+  puzzle = new Puzzle(img, 2, 2);
 }
 
 function draw()

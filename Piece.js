@@ -17,18 +17,19 @@ class Piece
             right: null
         };
 
-
-
-        this.buffer = this.widthNorm/4
+        this.hasBeenPlacedCorrect = false;
+        this.offsetFromCorrectSpotX = 0;
+        this.offsetFromCorrectSpotY = 0;
+        this.buffer = this.widthNorm/4;
         this.imagePiece = createImage(this.widthNorm + this.buffer*2, this.heightNorm + this.buffer*2);
         this.imagePiece.loadPixels();
 
-        let boardValues = puzzleObj.getBoardValues();
-        this.upperCornerX = boardValues.x;
-        this.upperCornerY = boardValues.y;
-        while ((this.upperCornerX + this.widthNorm) > boardValues.x &&
-               this.upperCornerX < (boardValues.x + boardValues.width) &&
-               this.upperCornerY < boardValues.y + boardValues.height
+        this.boardValues = this.puzzleObj.getBoardValues();
+        this.upperCornerX = this.boardValues.x;
+        this.upperCornerY = this.boardValues.y;
+        while ((this.upperCornerX + this.widthNorm) > this.boardValues.x &&
+               this.upperCornerX < (this.boardValues.x + this.boardValues.width) &&
+               this.upperCornerY < this.boardValues.y + this.boardValues.height
             )
         {
         this.upperCornerX = random(0, width) - this.buffer;
@@ -54,6 +55,7 @@ class Piece
     draw() 
     {
         image(this.imagePiece, this.upperCornerX - this.buffer, this.upperCornerY - this.buffer);
+        this.checkIfPieceIsCorrect();
     }
 
     // assign the pixels on the new piece to the according pixels on the whole image
@@ -109,25 +111,38 @@ class Piece
         //Snaps the piece to a grid if inside of board
         if(this.isInsideBoard(this.puzzleObj))
         {
-            this.upperCornerX = round((this.upperCornerX - this.puzzleObj.getBoardValues().x) / this.widthNorm) * this.widthNorm + this.puzzleObj.getBoardValues().x;
-            this.upperCornerY = round((this.upperCornerY - this.puzzleObj.getBoardValues().y) / this.heightNorm) * this.heightNorm + this.puzzleObj.getBoardValues().y;
+            this.upperCornerX = round((this.upperCornerX - this.boardValues.x) / this.widthNorm) * this.widthNorm + this.boardValues.x;
+            this.upperCornerY = round((this.upperCornerY - this.boardValues.y) / this.heightNorm) * this.heightNorm + this.boardValues.y;
         }
     }
 
     // returns whether a piece is inside a puzzle
     isInsideBoard()
     {
-        let boardPos = this.puzzleObj.getBoardValues();
-        if (boardPos.x < (this.upperCornerX + this.widthNorm/2) && 
-            boardPos.x + boardPos.width > (this.upperCornerX + this.widthNorm/2) && 
-            boardPos.y < (this.upperCornerY + this.heightNorm/2) && 
-            boardPos.y + boardPos.height > (this.upperCornerY + this.heightNorm/2)
+        if (this.boardValues.x < (this.upperCornerX + this.widthNorm/2) && 
+            this.boardValues.x + this.boardValues.width > (this.upperCornerX + this.widthNorm/2) && 
+            this.boardValues.y < (this.upperCornerY + this.heightNorm/2) && 
+            this.boardValues.y + this.boardValues.height > (this.upperCornerY + this.heightNorm/2)
         )
         {
             return true;
         } else
         {
             return false
+        }
+    }
+
+    //Checks if the spot where the piece is placed is correct
+    checkIfPieceIsCorrect()
+    {
+        //Calculates if the spot is correct
+        this.offsetFromCorrectSpotX = (this.relativeX * this.widthNorm + this.boardValues.x) - this.upperCornerX;
+        this.offsetFromCorrectSpotY = (this.relativeY * this.heightNorm + this.boardValues.y) - this.upperCornerY;
+        
+        //If it is correct notify the puzzle object
+        if(this.puzzleObj.movingPieces.length == 0 && this.offsetFromCorrectSpotX == 0 && this.offsetFromCorrectSpotY == 0)
+        {
+            this.puzzleObj.pieceIsCorrect(true);
         }
     }
 }

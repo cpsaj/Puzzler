@@ -5,6 +5,7 @@ class Puzzle
         this.image = image;
         this.piecesX = piecesX;
         this.piecesY = piecesY;
+        this.correctPieces = 0;
 
         this.pieces = []
         this.movingPieces = [];
@@ -68,5 +69,16 @@ class Puzzle
     {
         //Draws the board
         rect(this.boardX, this.boardY, this.boardWidth, this.boardHeight);
+    }
+
+    pieceIsCorrect(addToCorrectPieces)
+    {
+        this.correctPieces++;
+        console.log(this.correctPieces);
+
+        if(this.correctPieces == this.piecesX * this.piecesY)
+        {
+            console.log("Puzzle finished!!!");
+        }
     }
 }
