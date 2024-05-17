@@ -30,7 +30,13 @@ function draw()
       puzzle.pieces[j][i].draw();
     }
   }
+
+  for(let i = 0; i < puzzle.movingPieces.length; i++)
+    {
+      puzzle.movingPieces[i].draw();
+    }
 }
+
 
 function mouseDragged()
 {
