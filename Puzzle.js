@@ -9,6 +9,9 @@ class Puzzle
         this.pieces = []
         this.movingPieces = [];
 
+        this.calculatePieceSize();
+
+        this.ratio = image.width;
         this.boardWidth = image.width;
         this.boardHeight = image.height;
         this.boardX = (width - image.width) / 2;
@@ -19,7 +22,6 @@ class Puzzle
             this.pieces[x] = [];
         }
 
-        this.calculatePieceSize();
         this.generatePieces();
     }
 

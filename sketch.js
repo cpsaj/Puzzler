@@ -2,7 +2,7 @@ let img, hej;
 let movingPiece = false;
 
 function preload() {
-  img = loadImage("Images\\Cameleon.png");
+  img = loadImage("Images\\Woods.jpg");
 }
 
 function setup() 
@@ -12,7 +12,7 @@ function setup()
   img.loadPixels();
 
   
-  puzzle = new Puzzle(img, 4, 4);
+  puzzle = new Puzzle(img, 2, 2);
 }
 
 function draw()
