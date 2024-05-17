@@ -1,8 +1,8 @@
-let img, hej;
-let movingPiece = false;
+let img, hej, font;
 
 function preload() {
-  img = loadImage("Images\\Woods.jpg");
+  img = loadImage("Images\\Cameleon.png");
+  font = loadFont("Fonts\\Fishfingers.ttf");
 }
 
 function setup() 
@@ -12,7 +12,8 @@ function setup()
   img.loadPixels();
 
   
-  puzzle = new Puzzle(img, 2, 2);
+  puzzle = new Puzzle(img, 10, 5);
+  gameManager = new GameManager(img, puzzle, font);
 }
 
 function draw()
@@ -32,9 +33,10 @@ function draw()
   }
 
   for(let i = 0; i < puzzle.movingPieces.length; i++)
-    {
-      puzzle.movingPieces[i].draw();
-    }
+  {
+    puzzle.movingPieces[i].draw();
+  }
+  gameManager.draw();
 }
 
 
@@ -72,7 +74,7 @@ function mouseReleased()
   puzzle.movingPieces = [];
   if(puzzle.isSolved())
   {
-    console.log("færdig");
+    gameManager.puzzleFinishedPage();
   }
 }
 
