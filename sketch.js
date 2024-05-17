@@ -12,7 +12,7 @@ function setup()
   img.loadPixels();
 
   
-  puzzle = new Puzzle(img, 2, 2);
+  puzzle = new Puzzle(img, 4, 4);
 }
 
 function draw()
@@ -64,6 +64,10 @@ function mouseReleased()
       puzzle.movingPieces[i].snap(puzzle);
     }
   puzzle.movingPieces = [];
+  if(puzzle.isSolved())
+  {
+    console.log("færdig");
+  }
 }
 
 

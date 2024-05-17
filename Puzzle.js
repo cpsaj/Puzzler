@@ -5,7 +5,6 @@ class Puzzle
         this.image = image;
         this.piecesX = piecesX;
         this.piecesY = piecesY;
-        this.correctPieces = 0;
 
         this.pieces = []
         this.movingPieces = [];
@@ -46,7 +45,6 @@ class Puzzle
         if(!Number.isInteger(this.image.height / this.piecesY))
         {
             this.image.resize(this.image.width, this.image.height - (this.image.height % this.piecesY));
-            
         }
 
         //Calculates the size of the pieces and number of pieces
@@ -71,14 +69,18 @@ class Puzzle
         rect(this.boardX, this.boardY, this.boardWidth, this.boardHeight);
     }
 
-    pieceIsCorrect(addToCorrectPieces)
+    isSolved()
     {
-        this.correctPieces++;
-        console.log(this.correctPieces);
-
-        if(this.correctPieces == this.piecesX * this.piecesY)
+        for(let x = 0; x < this.pieces.length; x++)
         {
-            console.log("Puzzle finished!!!");
+            for(let y = 0; y < this.pieces[0].length; y++)
+            {
+                if(!this.pieces[x][y].checkIfPieceIsCorrect())
+                {
+                    return false;
+                }
+            }
         }
+        return true;
     }
 }

@@ -142,7 +142,7 @@ class Piece
         //If it is correct notify the puzzle object
         if(this.puzzleObj.movingPieces.length == 0 && this.offsetFromCorrectSpotX == 0 && this.offsetFromCorrectSpotY == 0)
         {
-            this.puzzleObj.pieceIsCorrect(true);
+            return true;
         }
     }
 }
