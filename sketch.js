@@ -3,6 +3,10 @@ let img, hej, font;
 function preload() {
   img = loadImage("Images\\Cameleon.png");
   font = loadFont("Fonts\\Fishfingers.ttf");
+  sideImgLeft = loadImage("Images\\Side\\Left.png");
+  sideImgRight = loadImage("Images\\Side\\Right.png");
+  sideImgTop = loadImage("Images\\Side\\Top.png");
+  sideImgBot = loadImage("Images\\Side\\Bot.png");
 }
 
 function setup() 
@@ -10,9 +14,13 @@ function setup()
   createCanvas(1920, 1080);
 
   img.loadPixels();
+  sideImgLeft.loadPixels();
+  sideImgRight.loadPixels();
+  sideImgTop.loadPixels();
+  sideImgBot.loadPixels();
 
   
-  puzzle = new Puzzle(img, 10, 5);
+  puzzle = new Puzzle(img, 4, 4);
   gameManager = new GameManager(img, puzzle, font);
 }
 

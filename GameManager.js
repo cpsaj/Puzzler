@@ -17,7 +17,7 @@ class GameManager
             textAlign(CENTER);
             textSize(this.finishedTextSize);
             textFont(font);
-            text("PUZZLE FINISHED!", width/2, height/2);
+            text("PUZZLE FINISHED!", width/2, 200);
         }
     }
 

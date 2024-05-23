@@ -20,7 +20,7 @@ class Piece
         this.hasBeenPlacedCorrect = false;
         this.offsetFromCorrectSpotX = 0;
         this.offsetFromCorrectSpotY = 0;
-        this.buffer = this.widthNorm/4;
+        this.buffer = this.widthNorm/5;
         this.imagePiece = createImage(this.widthNorm + this.buffer*2, this.heightNorm + this.buffer*2);
         this.imagePiece.loadPixels();
 
@@ -45,11 +45,10 @@ class Piece
         //     this.imagePiece.pixels[i] = 255;
         //     this.imagePiece.pixels[i + 1] = 0;
         //     this.imagePiece.pixels[i + 2] = 0;
-        //     this.imagePiece.pixels[i + 3] = 255;
+        //     this.imagePiece.pixels[i + 3] = 50;
         // }
 
         this.assignPixels();
-
     }
 
     draw() 
@@ -61,22 +60,22 @@ class Piece
     // assign the pixels on the new piece to the according pixels on the whole image
     assignPixels()
     {
+        // pixels from the top of piece (with the buffer) down to the start of the picture (without the buffer)
+        let topBuffer = this.imagePiece.width * this.buffer * 4;
+
+        // pixels from the side of piece (with the buffer) to the start of the picture on hte x-axis (without the buffer)
+        let sideBuffer = this.buffer * 4;
+
+        // pixels from the start of the whole image to the start of the piece on the x-axis
+        let wholeImageStartSide = this.relativeX * this.widthNorm * 4;
+
+        // pixels from the start of the whole image to the start of the piece on the y-axis
+        let wholeImageStartTop = this.relativeY * this.heightNorm * this.wholeImage.width * 4;
+
         for (let y = 0; y < this.heightNorm; y += 1) 
         {
             for (let x = 0; x < this.widthNorm * 4; x += 4) 
             {
-                // pixels from the top of piece (with the buffer) down to the start of the picture (without the buffer)
-                let topBuffer = this.imagePiece.width * this.buffer * 4;
-
-                // pixels from the side of piece (with the buffer) to the start of the picture on hte x-axis (without the buffer)
-                let sideBuffer = this.buffer * 4;
-
-                // pixels from the start of the whole image to the start of the piece on the x-axis
-                let wholeImageStartSide = this.relativeX * this.widthNorm * 4;
-
-                // pixels from the start of the whole image to the start of the piece on the y-axis
-                let wholeImageStartTop = this.relativeY * this.heightNorm * this.wholeImage.width * 4;
-
                 // assign the pixels on the new piece to the according pixels on the whole image
                 this.imagePiece.pixels[topBuffer + sideBuffer + x + y * this.imagePiece.width * 4] = this.wholeImage.pixels[x + y * this.wholeImage.width * 4 + wholeImageStartSide + wholeImageStartTop];
                 this.imagePiece.pixels[topBuffer + sideBuffer + x + y * this.imagePiece.width * 4 + 1] = this.wholeImage.pixels[x + 1 + y * this.wholeImage.width * 4 + wholeImageStartSide + wholeImageStartTop];
@@ -144,5 +143,173 @@ class Piece
         {
             return true;
         }
+    }
+
+    // adds/removes the side thing that keeps pieces togehter. First input is which side (1: left, 2: rigth, 3: top, 4: bot), second input is bool of wheter it should add/remove thing
+    addSide(side, out)
+    {
+        sideImgRight.resize(this.buffer, this.imagePiece.height - this.buffer * 2);
+        sideImgLeft.resize(this.buffer, this.imagePiece.height - this.buffer * 2);
+        sideImgTop.resize(this.widthNorm, this.buffer);
+        sideImgBot.resize(this.widthNorm, this.buffer);
+
+        // pixels from the top of piece (with the buffer) down to the start of the picture (without the buffer)
+        let topBuffer = this.imagePiece.width * this.buffer * 4;
+
+        // pixels from the top of piece (with the buffer) down to the start of the picture (without the buffer)
+        let topBufferWholeImage = this.wholeImage.width * this.buffer * 4;
+
+        // pixels from the start of the whole image to the start of the piece on the x-axis
+        let wholeImageStartSide = this.relativeX * this.widthNorm * 4 - this.buffer * 4;
+
+        // pixels from the start of the whole image to the start of the piece on the y-axis
+        let wholeImageStartTop = this.relativeY * this.heightNorm * this.wholeImage.width * 4;
+
+        // pixels from the left start of piece (with the buffer) to the right end of the piece (without the buffer)
+        let moveRightSideOfPiece = this.widthNorm * 4 + this.buffer * 4;
+
+        // pixels from the left start of piece (with the buffer) to the left start of the piece (without the buffer)
+        let moveRightFromBuffer = this.buffer * 4;
+
+        // pixels from the top start of the peice (without the buffer) to the bottom end of the piece (without the buffer)
+        let moveToBottomPiece = this.heightNorm * this.imagePiece.width * 4;
+
+        // pixels from the top start of the peice (without the buffer) to the bottom end of the piece (without the buffer) in the whole image
+        let moveToBottomWholeImage = this.heightNorm * this.wholeImage.width * 4;
+        
+        // which side to add/remove the side thing
+        switch (side)
+        {
+            case 0: // Left
+                if (out) // outwards poking
+                {
+                    for (let y = 0; y < sideImgLeft.height; y++)
+                    {
+                        let yMoverPiece = y * this.imagePiece.width * 4;
+                        let yMoverWholeImage = y * this.wholeImage.width * 4;
+                        for (let x = 0; x < sideImgLeft.width * 4; x += 4)
+                        {
+                            this.imagePiece.pixels[x + yMoverPiece + topBuffer] =  this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop];
+                            this.imagePiece.pixels[x + 1 + yMoverPiece + topBuffer] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop];
+                            this.imagePiece.pixels[x + 2 + yMoverPiece + topBuffer] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop];
+                            this.imagePiece.pixels[x + 3 + yMoverPiece + topBuffer] = sideImgLeft.pixels[x + 2 + y * sideImgLeft.width * 4];
+                        }
+                    }
+                } else // Inwards poking
+                {
+                    for (let y = 0; y < sideImgLeft.height; y++)
+                    {
+                        let yMoverPiece = y * this.imagePiece.width * 4;
+                        let yMoverWholeImage = y * this.wholeImage.width * 4;
+                        for (let x = 0; x < sideImgLeft.width * 4; x += 4)
+                        {
+                            this.imagePiece.pixels[x + yMoverPiece + topBuffer + moveRightFromBuffer] =  this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
+                            this.imagePiece.pixels[x + 1 + yMoverPiece + topBuffer + moveRightFromBuffer] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
+                            this.imagePiece.pixels[x + 2 + yMoverPiece + topBuffer + moveRightFromBuffer] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
+                            this.imagePiece.pixels[x + 3 + yMoverPiece + topBuffer + moveRightFromBuffer] = (sideImgRight.pixels[x + 2 + y * sideImgLeft.width * 4] < 200) ? 255 : 0;    
+                        } 
+                    }
+                }
+                break;
+            case 1: // Right
+                if (out) // outwards poking
+                {
+                    for (let y = 0; y < this.widthNorm * 4; y++)
+                    {
+                        let yMoverPiece = y * this.imagePiece.width * 4;
+                        let yMoverWholeImage = y * this.wholeImage.width * 4;
+                        for (let x = 0; x < sideImgRight.width * 4; x += 4)
+                        {
+                            this.imagePiece.pixels[x + yMoverPiece + topBuffer + moveRightSideOfPiece] =  this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece];
+                            this.imagePiece.pixels[x + 2 + yMoverPiece + topBuffer + moveRightSideOfPiece] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece];
+                            this.imagePiece.pixels[x + 1 + yMoverPiece + topBuffer + moveRightSideOfPiece] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece];
+                            this.imagePiece.pixels[x + 3 + yMoverPiece + topBuffer + moveRightSideOfPiece] = sideImgRight.pixels[x + 2 + y * sideImgRight.width * 4];
+                        }
+                    }
+                } else // Inwards poking
+                {
+                    for (let y = 0; y < this.widthNorm * 4; y++)
+                    {
+                        let yMoverPiece = y * this.imagePiece.width * 4;
+                        let yMoverWholeImage = y * this.wholeImage.width * 4;
+                        for (let x = 0; x < sideImgRight.width * 4; x += 4)
+                        {
+                            
+                            this.imagePiece.pixels[x + yMoverPiece + topBuffer + moveRightSideOfPiece - moveRightFromBuffer] =  this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece - moveRightFromBuffer];
+                            this.imagePiece.pixels[x + 1 + yMoverPiece + topBuffer + moveRightSideOfPiece - moveRightFromBuffer] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece - moveRightFromBuffer];
+                            this.imagePiece.pixels[x + 2 + yMoverPiece + topBuffer + moveRightSideOfPiece - moveRightFromBuffer] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece - moveRightFromBuffer];
+                            this.imagePiece.pixels[x + 3 + yMoverPiece + topBuffer + moveRightSideOfPiece - moveRightFromBuffer] = (sideImgLeft.pixels[x + 2 + y * sideImgLeft.width * 4] < 200) ? 255 : 0;
+                        }
+                    }
+                }
+                break;
+            case 2: // Top
+                if (out) // outwards poking
+                {
+                    for (let y = 0; y < this.buffer; y++)
+                    {
+                        let yMoverPiece = y * this.imagePiece.width * 4;
+                        let yMoverWholeImage = y * this.wholeImage.width * 4;
+                        for (let x = 0; x < this.widthNorm * 4; x += 4)
+                        {
+                            this.imagePiece.pixels[x + yMoverPiece + moveRightFromBuffer] = this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer - topBufferWholeImage];
+                            this.imagePiece.pixels[x + 1 + yMoverPiece + moveRightFromBuffer] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer - topBufferWholeImage];
+                            this.imagePiece.pixels[x + 2 + yMoverPiece + moveRightFromBuffer] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer - topBufferWholeImage];
+                            this.imagePiece.pixels[x + 3 + yMoverPiece + moveRightFromBuffer] = sideImgTop.pixels[x + 2  + y * sideImgTop.width * 4];
+                        }
+                    }
+                } else // Inwards poking
+                {
+                    for (let y = 0; y < this.buffer; y++)
+                    {
+                        let yMoverPiece = y * this.imagePiece.width * 4;
+                        let yMoverWholeImage = y * this.wholeImage.width * 4;
+                        for (let x = 0; x < this.widthNorm * 4; x += 4)
+                        {
+                            this.imagePiece.pixels[x + yMoverPiece + moveRightFromBuffer + topBuffer] = this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
+                            this.imagePiece.pixels[x + 1 + yMoverPiece + moveRightFromBuffer + topBuffer] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
+                            this.imagePiece.pixels[x + 2 + yMoverPiece + moveRightFromBuffer + topBuffer] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
+                            this.imagePiece.pixels[x + 3 + yMoverPiece + moveRightFromBuffer + topBuffer] = (sideImgBot.pixels[x + 2 + y * sideImgBot.width * 4] < 200) ? 255 : 0;
+                        }
+                    }
+                }
+                break;
+            case 3: // Bot
+                if (out) // outwards poking
+                {
+                    for (let y = 0; y < this.buffer; y++)
+                    {
+                        let yMoverPiece = y * this.imagePiece.width * 4;
+                        let yMoverWholeImage = y * this.wholeImage.width * 4;
+                        for (let x = 0; x < this.widthNorm * 4; x += 4)
+                        {
+                            this.imagePiece.pixels[x + yMoverPiece + moveRightFromBuffer + topBuffer + moveToBottomPiece] = this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer + moveToBottomWholeImage];
+                            this.imagePiece.pixels[x + 1 + yMoverPiece + moveRightFromBuffer + topBuffer + moveToBottomPiece] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer + moveToBottomWholeImage];
+                            this.imagePiece.pixels[x + 2 + yMoverPiece + moveRightFromBuffer + topBuffer + moveToBottomPiece] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer + moveToBottomWholeImage];
+                            this.imagePiece.pixels[x + 3 + yMoverPiece + moveRightFromBuffer + topBuffer + moveToBottomPiece] = sideImgBot.pixels[x + 2  + y * sideImgBot.width * 4];
+                        
+                        }
+                    }  
+                } else // Inwards poking
+                {
+                    for (let y = 0; y < this.buffer; y++)
+                    {
+                        let yMoverPiece = y * this.imagePiece.width * 4;
+                        let yMoverWholeImage = y * this.wholeImage.width * 4;
+                        for (let x = 0; x < this.widthNorm * 4; x += 4)
+                        {
+                            this.imagePiece.pixels[x + yMoverPiece + moveRightFromBuffer + moveToBottomPiece] = this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer + moveToBottomWholeImage - topBufferWholeImage];
+                            this.imagePiece.pixels[x + 1 + yMoverPiece + moveRightFromBuffer + moveToBottomPiece] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer + moveToBottomWholeImage - topBufferWholeImage];
+                            this.imagePiece.pixels[x + 2 + yMoverPiece + moveRightFromBuffer + moveToBottomPiece] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer + moveToBottomWholeImage - topBufferWholeImage];
+                            this.imagePiece.pixels[x + 3 + yMoverPiece + moveRightFromBuffer + moveToBottomPiece] = (sideImgTop.pixels[x + 2 + y * sideImgTop.width * 4] < 200) ? 255 : 0;
+                        }
+                    }
+                }
+                break;
+
+        }
+        
+
+        this.imagePiece.updatePixels();
     }
 }
