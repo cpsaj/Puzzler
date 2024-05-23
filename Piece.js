@@ -50,10 +50,10 @@ class Piece
 
         this.assignPixels();
 
-        this.addSide(0,int(random(0,1)))
-        this.addSide(1,int(random(0,1)))
-        this.addSide(2,int(random(0,1)))
-        this.addSide(0,int(random(0,1)))
+        this.addSide(0,1)
+        this.addSide(1,0)
+        this.addSide(2,0)
+        this.addSide(3,1)
     }
 
     draw() 
