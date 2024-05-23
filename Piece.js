@@ -49,6 +49,11 @@ class Piece
         // }
 
         this.assignPixels();
+
+        this.addSide(0,int(random(0,1)))
+        this.addSide(1,int(random(0,1)))
+        this.addSide(2,int(random(0,1)))
+        this.addSide(0,int(random(0,1)))
     }
 
     draw() 
@@ -145,7 +150,7 @@ class Piece
         }
     }
 
-    // adds/removes the side thing that keeps pieces togehter. First input is which side (1: left, 2: rigth, 3: top, 4: bot), second input is bool of wheter it should add/remove thing
+    // adds/removes the side thing that keeps pieces togehter. First input is which side (0: left, 1: right, 2: top, 3: bot), second input is bool of wheter it should add/remove thing
     addSide(side, out)
     {
         sideImgRight.resize(this.buffer, this.imagePiece.height - this.buffer * 2);
