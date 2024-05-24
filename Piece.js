@@ -10,13 +10,6 @@ class Piece
         this.widthNorm = widthNorm;
         this.heightNorm = heightNorm;
 
-        this.neighbors = {
-            up: null,
-            down: null,
-            left: null,
-            right: null
-        };
-
         this.hasBeenPlacedCorrect = false;
         this.offsetFromCorrectSpotX = 0;
         this.offsetFromCorrectSpotY = 0;
@@ -225,7 +218,6 @@ class Piece
                         let yMoverWholeImage = y * this.wholeImage.width * 4;
                         for (let x = 0; x < sideImgRight.width * 4; x += 4)
                         {
-                            
                             this.imagePiece.pixels[x + yMoverPiece + topBuffer + moveRightSideOfPiece - moveRightFromBuffer] =  this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece - moveRightFromBuffer];
                             this.imagePiece.pixels[x + 1 + yMoverPiece + topBuffer + moveRightSideOfPiece - moveRightFromBuffer] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece - moveRightFromBuffer];
                             this.imagePiece.pixels[x + 2 + yMoverPiece + topBuffer + moveRightSideOfPiece - moveRightFromBuffer] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece - moveRightFromBuffer];
@@ -299,7 +291,7 @@ class Piece
                 break;
 
         }
-        
+
 
         this.imagePiece.updatePixels();
     }
