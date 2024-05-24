@@ -39,21 +39,7 @@ class Piece
         this.midX = random(0, width) - this.buffer - this.widthNorm/2;
         this.midY = random(0, height) - this.buffer - this.heightNorm/2;
 
-        // visualisering af buffer
-        // for (let i = 0; i < this.imagePiece.pixels.length; i += 4) 
-        // {
-        //     this.imagePiece.pixels[i] = 255;
-        //     this.imagePiece.pixels[i + 1] = 0;
-        //     this.imagePiece.pixels[i + 2] = 0;
-        //     this.imagePiece.pixels[i + 3] = 50;
-        // }
-
         this.assignPixels();
-
-        this.addSide(0,1)
-        this.addSide(1,0)
-        this.addSide(2,0)
-        this.addSide(3,1)
     }
 
     draw() 

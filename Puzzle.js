@@ -23,6 +23,8 @@ class Puzzle
         }
 
         this.generatePieces();
+
+        this.assignDots();
     }
 
     getBoardValues()
@@ -33,6 +35,52 @@ class Puzzle
             width: this.boardWidth,
             height: this.boardHeight
         };
+    }
+
+    assignDots()
+    {
+        for (let x = 0; x < this.piecesX; x++)
+        {
+            let beforeDownDot = int(random(0,2))
+            this.pieces[x][0].addSide(3,beforeDownDot);
+            for (let y = 1; y < this.piecesY; y++)
+            {
+                if (beforeDownDot == 1) 
+                {
+                    this.pieces[x][y].addSide(2,0);
+                } else
+                {
+                    this.pieces[x][y].addSide(2,1);
+                }
+
+                if ((y < this.piecesY - 1))
+                {
+                    beforeDownDot = int(random(0,2));
+                    this.pieces[x][y].addSide(3, beforeDownDot);
+                }
+            }
+        }
+        for (let y = 0; y < this.piecesY; y++)
+        {
+            let beforeRightDot = int(random(0,2));
+            this.pieces[0][y].addSide(1,beforeRightDot);
+            for (let x = 1; x < this.piecesX; x++)
+            {
+                if (beforeRightDot == 1) 
+                {
+                    this.pieces[x][y].addSide(0,0);
+                } else
+                {
+                    this.pieces[x][y].addSide(0,1);
+                }
+
+                if ((x < this.piecesX - 1))
+                {
+                    beforeRightDot = int(random(0,2));
+                    this.pieces[x][y].addSide(1, beforeRightDot);
+                }
+            }
+        }
     }
 
     calculatePieceSize() 
