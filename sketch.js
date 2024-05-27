@@ -20,7 +20,7 @@ function setup()
   sideImgBot.loadPixels();
 
   
-  puzzle = new Puzzle(img, 4, 4);
+  puzzle = new Puzzle(img, 8, 8);
   gameManager = new GameManager(img, puzzle, font);
 }
 
@@ -60,9 +60,9 @@ function mouseDragged()
 function mousePressed()
 {
   exit_loops:
-  for(let i = 0; i < puzzle.pieces[0].length; i++)
+  for(let i = puzzle.pieces[0].length - 1; i >= 0; i--)
   {
-    for(let j = 0; j < puzzle.pieces.length; j++)
+    for(let j = puzzle.pieces.length - 1; j >= 0; j--)
     {
       if (puzzle.pieces[j][i].mouseIsOver())
       {
