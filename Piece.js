@@ -187,9 +187,6 @@ class Piece
                         let yMoverWholeImage = y * this.wholeImage.width * 4;
                         for (let x = 0; x < sideImgLeft.width * 4; x += 4)
                         {
-                            this.imagePiece.pixels[x + yMoverPiece + topBuffer + moveRightFromBuffer] =  this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
-                            this.imagePiece.pixels[x + 1 + yMoverPiece + topBuffer + moveRightFromBuffer] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
-                            this.imagePiece.pixels[x + 2 + yMoverPiece + topBuffer + moveRightFromBuffer] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
                             this.imagePiece.pixels[x + 3 + yMoverPiece + topBuffer + moveRightFromBuffer] = (sideImgRight.pixels[x + 2 + y * sideImgLeft.width * 4] < 200) ? 255 : 0;    
                         } 
                     }
@@ -218,9 +215,6 @@ class Piece
                         let yMoverWholeImage = y * this.wholeImage.width * 4;
                         for (let x = 0; x < sideImgRight.width * 4; x += 4)
                         {
-                            this.imagePiece.pixels[x + yMoverPiece + topBuffer + moveRightSideOfPiece - moveRightFromBuffer] =  this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece - moveRightFromBuffer];
-                            this.imagePiece.pixels[x + 1 + yMoverPiece + topBuffer + moveRightSideOfPiece - moveRightFromBuffer] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece - moveRightFromBuffer];
-                            this.imagePiece.pixels[x + 2 + yMoverPiece + topBuffer + moveRightSideOfPiece - moveRightFromBuffer] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightSideOfPiece - moveRightFromBuffer];
                             this.imagePiece.pixels[x + 3 + yMoverPiece + topBuffer + moveRightSideOfPiece - moveRightFromBuffer] = (sideImgLeft.pixels[x + 2 + y * sideImgLeft.width * 4] < 200) ? 255 : 0;
                         }
                     }
@@ -249,9 +243,6 @@ class Piece
                         let yMoverWholeImage = y * this.wholeImage.width * 4;
                         for (let x = 0; x < this.widthNorm * 4; x += 4)
                         {
-                            this.imagePiece.pixels[x + yMoverPiece + moveRightFromBuffer + topBuffer] = this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
-                            this.imagePiece.pixels[x + 1 + yMoverPiece + moveRightFromBuffer + topBuffer] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
-                            this.imagePiece.pixels[x + 2 + yMoverPiece + moveRightFromBuffer + topBuffer] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer];
                             this.imagePiece.pixels[x + 3 + yMoverPiece + moveRightFromBuffer + topBuffer] = (sideImgBot.pixels[x + 2 + y * sideImgBot.width * 4] < 200) ? 255 : 0;
                         }
                     }
@@ -281,9 +272,6 @@ class Piece
                         let yMoverWholeImage = y * this.wholeImage.width * 4;
                         for (let x = 0; x < this.widthNorm * 4; x += 4)
                         {
-                            this.imagePiece.pixels[x + yMoverPiece + moveRightFromBuffer + moveToBottomPiece] = this.wholeImage.pixels[x + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer + moveToBottomWholeImage - topBufferWholeImage];
-                            this.imagePiece.pixels[x + 1 + yMoverPiece + moveRightFromBuffer + moveToBottomPiece] = this.wholeImage.pixels[x + 1 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer + moveToBottomWholeImage - topBufferWholeImage];
-                            this.imagePiece.pixels[x + 2 + yMoverPiece + moveRightFromBuffer + moveToBottomPiece] = this.wholeImage.pixels[x + 2 + yMoverWholeImage + wholeImageStartSide + wholeImageStartTop + moveRightFromBuffer + moveToBottomWholeImage - topBufferWholeImage];
                             this.imagePiece.pixels[x + 3 + yMoverPiece + moveRightFromBuffer + moveToBottomPiece] = (sideImgTop.pixels[x + 2 + y * sideImgTop.width * 4] < 200) ? 255 : 0;
                         }
                     }
