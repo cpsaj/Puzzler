@@ -1,6 +1,7 @@
 let img, hej, font;
 
-function preload() {
+function preload() 
+{
   img = loadImage("Images\\Cameleon.png");
   font = loadFont("Fonts\\Fishfingers.ttf");
   sideImgLeft = loadImage("Images\\Side\\Left.png");
@@ -27,8 +28,6 @@ function setup()
 function draw()
 {
   background(220);
-  //image(puzzle.pieces[4][3].imagePiece,100 - puzzle.pieces[0][0].buffer,100 - puzzle.pieces[0][0].buffer);
-  // image(pice.imagePiece,100 - pice.buffer + pice.relativeX * pice.widthNorm,100 - pice.buffer + pice.relativeY * pice.heightNorm);
 
   //Drawing pieces and board
   puzzle.draw();
