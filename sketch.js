@@ -8,6 +8,8 @@ function preload()
   sideImgRight = loadImage("Images\\Side\\Right.png");
   sideImgTop = loadImage("Images\\Side\\Top.png");
   sideImgBot = loadImage("Images\\Side\\Bot.png");
+  clickSound = loadSound("Sounds\\clickPuzzleSound.wav");
+  popSound = loadSound("Sounds\\popPuzzleSound.mp3");
 }
 
 function setup() 
@@ -65,6 +67,7 @@ function mousePressed()
     {
       if (puzzle.pieces[j][i].mouseIsOver())
       {
+        clickSound.play();
         puzzle.movingPieces.push(puzzle.pieces[j][i])
         break exit_loops;
       }
@@ -79,6 +82,7 @@ function mouseReleased()
       puzzle.movingPieces[i].snap(puzzle);
     }
   puzzle.movingPieces = [];
+  popSound.play();
   if(puzzle.isSolved())
   {
     gameManager.puzzleFinishedPage();
