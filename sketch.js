@@ -2,7 +2,7 @@ let img, hej, font;
 
 function preload() 
 {
-  img = loadImage("Images\\Cameleon.png");
+  img = loadImage("Images\\Woods.jpg");
   font = loadFont("Fonts\\Fishfingers.ttf");
   sideImgLeft = loadImage("Images\\Side\\Left.png");
   sideImgRight = loadImage("Images\\Side\\Right.png");
@@ -22,6 +22,8 @@ function setup()
   sideImgTop.loadPixels();
   sideImgBot.loadPixels();
 
+  textAlign(CENTER);
+  textFont(font);
   
   puzzle = new Puzzle(img, 8, 8);
   gameManager = new GameManager(img, puzzle, font);
