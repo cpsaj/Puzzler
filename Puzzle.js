@@ -9,6 +9,9 @@ class Puzzle
         this.pieces = []
         this.movingPieces = [];
 
+        // Sets the image and board to the same size in every game
+        this.image.resize(1280, 720);
+
         this.calculatePieceSize();
 
         this.ratio = image.width;
