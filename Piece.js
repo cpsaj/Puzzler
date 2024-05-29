@@ -94,6 +94,7 @@ class Piece
         //Snaps the piece to a grid if inside of board
         if(this.isInsideBoard(this.puzzleObj))
         {
+            popSound.play();
             this.upperCornerX = round((this.upperCornerX - this.boardValues.x) / this.widthNorm) * this.widthNorm + this.boardValues.x;
             this.upperCornerY = round((this.upperCornerY - this.boardValues.y) / this.heightNorm) * this.heightNorm + this.boardValues.y;
         }

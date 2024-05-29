@@ -84,7 +84,6 @@ function mouseReleased()
       puzzle.movingPieces[i].snap(puzzle);
     }
   puzzle.movingPieces = [];
-  popSound.play();
   if(puzzle.isSolved())
   {
     gameManager.puzzleFinishedPage();
