@@ -37,7 +37,7 @@ class GameManager
 
         // Calculates time that has passed
         this.currentTime = millis();
-        if(this.currentTime > (this.secondsInTotal + 1) * 1000)
+        if(this.currentTime > (this.secondsInTotal + 1) * 1000 && this.showDonePage == false)
         {
             this.secondsInTotal++;
             this.seconds++;
