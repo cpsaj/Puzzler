@@ -7,13 +7,15 @@ class GameManager
         this.font = font;
 
         this.showDonePage = false;
-        this.finishedTextSize = width - (width/1.15);
+        this.finishedTextSize = 200;
+        this.puzzleIsFinished = false;
 
 
         //Little image
         this.imageEdgeDistance = 15;
         this.boardY = puzzleObj.getBoardValues().y;
         this.boardWidth = puzzleObj.getBoardValues().width;
+        this.boardHeight = puzzleObj.getBoardValues().height;
         this.boardX = puzzleObj.getBoardValues().x;
 
         this.littleImageHeight = this.boardY - this.imageEdgeDistance*2;
@@ -28,12 +30,17 @@ class GameManager
         this.minutes = 0;
         this.hours = 0;
         this.timeTextSize = 100;
+        //Array with position for time text, x at index 0 and y at index 1
+        this.timeTextPos = [this.boardX + this.boardWidth * 1/4, (this.boardY / 2) + this.timeTextSize / 3]
     }
 
     draw()
     {
-        // Draws little image
-        image(this.image, this.boardX + (this.boardWidth * 3/4) - (this.littleImageHeight/2), this.imageEdgeDistance);
+        // Draws little image if game is not finished
+        if(!this.puzzleIsFinished)
+        {
+            image(this.image, this.boardX + (this.boardWidth * 3/4) - (this.littleImageHeight/2), this.imageEdgeDistance);
+        }
 
         // Calculates time that has passed
         this.currentTime = millis();
@@ -58,21 +65,24 @@ class GameManager
         text(((this.hours < 10) ? ("0" + this.hours) : this.hours) + ":" +
              ((this.minutes < 10) ? ("0" + this.minutes) : this.minutes) + ":" +
              ((this.seconds < 10) ? ("0" + this.seconds) : this.seconds),
-            this.boardX + this.boardWidth * 1/4,
-            (this.boardY / 2) + this.timeTextSize / 3);
+            this.timeTextPos[0],
+            this.timeTextPos[1]);
 
 
 
         if(this.showDonePage)
         {
             textSize(this.finishedTextSize);
-            text("PUZZLE FINISHED!", width/2, 200);
+            text("PUZZLE FINISHED!", width/2, this.boardY - 20);
+            this.timeTextPos[0] = width/2;
+            this.timeTextPos[1] = this.boardY * 1.5 + this.boardHeight + this.timeTextSize / 3;
         }
 
     }
 
     puzzleFinishedPage()
     {
+        this.puzzleIsFinished = true;
         this.showDonePage = true;
     }
 

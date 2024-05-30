@@ -2,7 +2,7 @@ let img, hej, font;
 
 function preload() 
 {
-  img = loadImage("Images\\Woods.jpg");
+  img = loadImage("Images\\WaterTree.jpg");
   font = loadFont("Fonts\\Fishfingers.ttf");
   sideImgLeft = loadImage("Images\\Side\\Left.png");
   sideImgRight = loadImage("Images\\Side\\Right.png");
