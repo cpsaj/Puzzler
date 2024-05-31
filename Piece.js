@@ -13,7 +13,7 @@ class Piece
         this.hasBeenPlacedCorrect = false;
         this.offsetFromCorrectSpotX = 0;
         this.offsetFromCorrectSpotY = 0;
-        this.buffer = this.widthNorm/5;
+        this.buffer = int(this.widthNorm/5);
         this.imagePiece = createImage(this.widthNorm + this.buffer*2, this.heightNorm + this.buffer*2);
         this.imagePiece.loadPixels();
 
