@@ -2,7 +2,7 @@ let img, hej, font;
 
 function preload() 
 {
-  img = loadImage("Images\\WaterTree.jpg");
+  img = loadImage("Images\\Flowers.jpg");
   font = loadFont("Fonts\\Fishfingers.ttf");
   sideImgLeft = loadImage("Images\\Side\\Left.png");
   sideImgRight = loadImage("Images\\Side\\Right.png");
@@ -10,6 +10,7 @@ function preload()
   sideImgBot = loadImage("Images\\Side\\Bot.png");
   clickSound = loadSound("Sounds\\clickPuzzleSound.wav");
   popSound = loadSound("Sounds\\popPuzzleSound.mp3");
+  pauseButton = loadImage("Images\\Button\\PauseButton.svg");
 }
 
 function setup() 
@@ -25,8 +26,8 @@ function setup()
   textAlign(CENTER);
   textFont(font);
   
-  puzzle = new Puzzle(img, 8, 8);
-  gameManager = new GameManager(img, puzzle, font);
+  puzzle = new Puzzle(img, 4, 4);
+  gameManager = new GameManager(img, puzzle, font, pauseButton);
 }
 
 function draw()
@@ -63,7 +64,7 @@ function mouseDragged()
 function mousePressed()
 {
   exit_loops:
-  for(let i = puzzle.pieces[0].length - 1; i >= 0; i--)
+  for(let i = puzzle.pieces[0].length - 1; i >= 0 && !gameManager.isGamePaused(); i--)
   {
     for(let j = puzzle.pieces.length - 1; j >= 0; j--)
     {
@@ -75,6 +76,7 @@ function mousePressed()
       }
     }
   }
+  gameManager.pauseTime();
 }
 
 function mouseReleased()

@@ -1,10 +1,11 @@
 class GameManager
 {
-    constructor(image, puzzleObj, font)
+    constructor(image, puzzleObj, font, pauseButton)
     {
         this.image = image;
         this.puzzleObj = puzzleObj;
         this.font = font;
+        this.pauseButton = pauseButton;
 
         this.showDonePage = false;
         this.finishedTextSize = 200;
@@ -31,7 +32,12 @@ class GameManager
         this.hours = 0;
         this.timeTextSize = 100;
         //Array with position for time text, x at index 0 and y at index 1
-        this.timeTextPos = [this.boardX + this.boardWidth * 1/4, (this.boardY / 2) + this.timeTextSize / 3]
+        this.timeTextPos = [this.boardX + this.boardWidth * 1/4, (this.boardY / 2) + this.timeTextSize / 3];
+
+        //Pause
+        this.pauseButton.resize(120, 120);
+        this.pausePos = [(width/2) - (this.pauseButton.width/2), (this.boardY/2) - (this.pauseButton.height/2)];
+        this.isPaused = false;
     }
 
     draw()
@@ -42,9 +48,12 @@ class GameManager
             image(this.image, this.boardX + (this.boardWidth * 3/4) - (this.littleImageHeight/2), this.imageEdgeDistance);
         }
 
+        //Draws pause button
+        image(this.pauseButton,this.pausePos[0], this.pausePos[1]);
+
         // Calculates time that has passed
         this.currentTime = millis();
-        if(this.currentTime > (this.secondsInTotal + 1) * 1000 && this.showDonePage == false)
+        if(this.currentTime > (this.secondsInTotal + 1) * 1000 && this.showDonePage == false && this.isPaused == false)
         {
             this.secondsInTotal++;
             this.seconds++;
@@ -77,7 +86,28 @@ class GameManager
             this.timeTextPos[0] = width/2;
             this.timeTextPos[1] = this.boardY * 1.5 + this.boardHeight + this.timeTextSize / 3;
         }
+    }
 
+    pauseTime()
+    {
+        if(mouseX < this.pausePos[0] + this.pauseButton.width && mouseX > this.pausePos[0] - this.pauseButton.height &&
+           mouseY < this.pausePos[1] + this.pauseButton.height && mouseY > this.pausePos[1] - this.pauseButton.height/2)
+        {
+            if(this.isPaused)
+            {
+                this.isPaused = false;
+            }
+            else
+            {
+                this.isPaused = true;
+            }
+        }
+    }
+
+    isGamePaused()
+    {
+        console.log(this.isPaused);
+        return this.isPaused;
     }
 
     puzzleFinishedPage()
